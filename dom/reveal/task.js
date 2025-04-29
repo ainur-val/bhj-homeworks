@@ -1,15 +1,17 @@
 window.addEventListener('scroll', function() {
 	const viewportHeight = window.innerHeight;
-	const element = document.querySelector('.reveal');
-	const elementTop = element.getBoundingClientRect().top;
-	const elementBottom = element.getBoundingClientRect().bottom;
-
-	if (elementTop < viewportHeight) {
-		element.classList.add('reveal_active');
-	};
-
-    if (elementTop > viewportHeight || elementBottom < 0) {
-		element.classList.remove('reveal_active');
-	};
-    
-});
+	const elements = document.querySelectorAll('.reveal');
+	
+	elements.forEach((el) => {
+	  el.getBoundingClientRect().top;
+  
+	  if (el.getBoundingClientRect().top < viewportHeight) {
+		el.classList.add('reveal_active');
+	  };
+	
+	  if (el.getBoundingClientRect().top > viewportHeight || el.getBoundingClientRect().bottom < 0) {
+		el.classList.remove('reveal_active');
+	  };
+	})
+	
+  });
