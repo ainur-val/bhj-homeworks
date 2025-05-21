@@ -44,6 +44,7 @@ function addItem() {
 		cart.insertAdjacentHTML("afterBegin", newItemDiv);
 	}
 
+//ПЕРВЫЙ ВАРИАНТ ДОБАВЛЕНИЯ ТОВАРА
 	let cartProd = Array.from(cart.querySelectorAll(".cart__product"));
 	let cartProdId = [];
 	for (let i = 0; i < cartProd.length; i++) {
@@ -58,6 +59,15 @@ function addItem() {
 	} else {
 		addNewItem();
 	}
+
+// 	//ВТОРОЙ ВАРИАНТ ДОБАВЛЕНИЯ ТОВАРА
+// 	const productInCard = cart.find(`div[data-id=${idItem}]`);
+// if(productInCard) {
+// 	document.querySelector(".cart__product-count").textContent = Number(document.querySelector(".cart__product-count").textContent) + amount;
+// } else {
+// 	addNewItem();
+// }
+
 }
 
 for (let addButton of btnProductAdd) {
