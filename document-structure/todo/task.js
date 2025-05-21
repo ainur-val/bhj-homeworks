@@ -2,24 +2,22 @@ const taskInput = document.getElementById("task__input");
 const tasksList = document.getElementById("tasks__list");
 const btn = document.getElementById("tasks__add");
 
+const removeTask = e => {
+	e.target.closest(".task").remove();
+}
 
-
-let func = function(event){
-	if ((taskInput.value !== "" && event.key === 'Enter') || (taskInput.value !== "" && event.button == 0)) {
-		tasksList.insertAdjacentHTML("afterBegin", '<div class="task"><div class="task__title">Сходить в магазин</div><a href="#" class="task__remove">&times;</a></div>');
-		document.querySelector(".task__title").innerText = taskInput.value;
+btn.addEventListener("click", function(event) {
+	let text = taskInput.value.trim();
+	if (text == "") {
 		event.preventDefault();
 		taskInput.value = "";
-	}
-	const task = document.querySelectorAll(".task");
-	const taskRemove = document.querySelectorAll(".task__remove");
-	for (let i = 0; i < taskRemove.length; i++) {
-		taskRemove[i].addEventListener("click", (e) => {
-			e.preventDefault();
-			task[i].remove();
+	} else {
+		tasksList.insertAdjacentHTML("afterBegin", `<div class="task"><div class="task__title">${taskInput.value}</div><a href="#" class="task__remove">&times;</a></div>`);
+		event.preventDefault();
+		taskInput.value = "";
+
+		[...(tasksList.getElementsByClassName("task__remove"))].forEach(element => {
+			element.addEventListener("click", removeTask)
 		});
 	}
-};
-
-taskInput.addEventListener("keydown", func);
-btn.addEventListener("click", func);
+})
