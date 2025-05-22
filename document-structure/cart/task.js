@@ -5,7 +5,6 @@ const btnQuantityControlMinus = document.querySelectorAll(".product__quantity-co
 let numberQuan;
 
 //Регулировка кол-ва товара
-
 //Добавление
 for (let i = 0; i < btnQuantityControlPlus.length; i++) {
 	btnQuantityControlPlus[i].addEventListener("click", function() {
@@ -26,7 +25,6 @@ for (let i = 0; i < btnQuantityControlMinus.length; i++) {
 	})
 }
 
-
 //Добавление товара в корзину
 function addItem() {
 	let newItem = this.closest("div.product");
@@ -34,6 +32,7 @@ function addItem() {
 	let picture = newItem.querySelectorAll(".product__image")[0].src;
 	let idItem = newItem.getAttribute("data-id");
 	let cart = document.querySelectorAll(".cart__products")[0];
+	let cartAll = document.querySelectorAll(".cart__product");
 
 	function addNewItem() {
 		let newItemDiv =
@@ -44,29 +43,17 @@ function addItem() {
 		cart.insertAdjacentHTML("afterBegin", newItemDiv);
 	}
 
-//ПЕРВЫЙ ВАРИАНТ ДОБАВЛЕНИЯ ТОВАРА
-	let cartProd = Array.from(cart.querySelectorAll(".cart__product"));
-	let cartProdId = [];
-	for (let i = 0; i < cartProd.length; i++) {
-		cartProdId[i] = cartProd[i].getAttribute("data-id");
+	function checkCart(element) {
+		return element.getAttribute("data-id") == idItem;
 	}
-	if (cartProdId.indexOf(idItem) !== -1) {
-		for (let i = 0; i < cartProdId.length; i++) {
-			if (cartProdId[i] === idItem) {
-				cartProd[i].querySelector(".cart__product-count").textContent = Number(cartProd[i].querySelector(".cart__product-count").textContent) + amount;
-			}
-		}
+
+	const productInCard = Array.from(cartAll).find(checkCart);
+	if (productInCard) {
+		let el = document.querySelector(`.cart__product[data-id="${idItem}"]`)
+		el.querySelector(".cart__product-count").textContent = Number(el.querySelector(".cart__product-count").textContent) + amount;
 	} else {
 		addNewItem();
 	}
-
-// 	//ВТОРОЙ ВАРИАНТ ДОБАВЛЕНИЯ ТОВАРА
-// 	const productInCard = cart.find(`div[data-id=${idItem}]`);
-// if(productInCard) {
-// 	document.querySelector(".cart__product-count").textContent = Number(document.querySelector(".cart__product-count").textContent) + amount;
-// } else {
-// 	addNewItem();
-// }
 
 }
 
