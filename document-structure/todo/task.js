@@ -7,17 +7,11 @@ const removeTask = e => {
 }
 
 btn.addEventListener("click", function(event) {
+	event.preventDefault();
 	let text = taskInput.value.trim();
-	if (text == "") {
-		event.preventDefault();
-		taskInput.value = "";
-	} else {
+	if (text !== "") {
 		tasksList.insertAdjacentHTML("afterBegin", `<div class="task"><div class="task__title">${taskInput.value}</div><a href="#" class="task__remove">&times;</a></div>`);
-		event.preventDefault();
-		taskInput.value = "";
-
-		[...(tasksList.getElementsByClassName("task__remove"))].forEach(element => {
-			element.addEventListener("click", removeTask)
-		});
-	}
+		tasksList.querySelector(".task__remove").addEventListener("click", removeTask)
+	};
+	taskInput.value = "";
 })
